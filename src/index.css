@@ -11,3 +11,44 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.Jpan ruby rt {
+  font-family: 'Yu Gothic UI','Meiryo UI','MS UI Gothic',sans-serif;
+  font-size: 60%;
+}
+.Hira, .Hira *, .Jpan, .Jpan *, .Kana, .Kana * {
+  font-style: normal;
+}
+ruby > rt {
+  display: block;
+  font-size: 50%;
+  text-align: start;
+}
+rt {
+  text-indent: 0px;
+  line-height: normal;
+  text-emphasis: none;
+  -webkit-text-emphasis: none;
+}
+ruby {
+  text-indent: 0px;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 0 5px 5px;
+}
+.cards div {
+  width: 50px;
+  height: 50px;
+  text-align:center;
+  line-height: 50px;
+  margin: 5px 5px 0px 0px;
+  cursor: pointer;
+  background-color: white;
+}
+.cards div.selected {
+  font-weight: bold;
+  filter: drop-shadow(2px 4px 6px black);
+}
