@@ -6961,7 +6961,7 @@ const Words = csv.map(
             word: cols[0],
             answer: cols[1],
             hint: cols[2],
-            ambiguous: cols[4],
+            ambiguous: "TRUE" === cols[4],
             testKanji: cols[9]
         }
     }

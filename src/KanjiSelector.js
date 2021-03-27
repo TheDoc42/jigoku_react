@@ -1,4 +1,4 @@
-import { useState } from "react";
+//import { useState } from "react";
 import Card from "./Card"
 import Kanji from "./Kanji4"
 
@@ -14,7 +14,7 @@ const KanjiSelector = (props) => {
             }
         } else {
             if (future.indexOf(index) > -1) {
-                future = future.filter((entry) => entry != index);
+                future = future.filter((entry) => entry !== index);
                 props.setSelectedKanji(future);
             }
         }

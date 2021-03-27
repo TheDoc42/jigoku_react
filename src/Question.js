@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 
 const Question = (props) => {
 
@@ -7,8 +7,6 @@ const Question = (props) => {
     const [correct, setCorrect] = useState(false);
     const [answer, setAnswer] = useState("");
 
-    const showHint = props.ambiguous || forceShowHint;
-
     const toggleShowForceHint = (e) => {
         e.preventDefault();
         setForceShowHint(!forceShowHint);
@@ -16,7 +14,7 @@ const Question = (props) => {
 
     const solveQuestion = (e) => {
         e.preventDefault();
-        setCorrect(props.answer == answer)
+        setCorrect(props.answer === answer)
         setSolved(true);
     }
 
@@ -81,7 +79,7 @@ const Question = (props) => {
                     {props.word}
                 </div>
                 {hintText()}
-                <input onKeyDown={updateAnswer} type="text" val={answer} />
+                <input onKeyDown={updateAnswer} type="text" val={answer}/>
                 {hintButton()}
                 {solveButton()}
                 {continueButton()}

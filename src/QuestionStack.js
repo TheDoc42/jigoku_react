@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, {useState} from "react";
+import {NavLink} from "react-router-dom";
 import Words from "./Words4"
 import Question from "./Question"
 
@@ -29,7 +29,7 @@ const QuestionStack = (props) => {
     const selectedWords = selection.slice(0, 10);
 
     const question = selectedWords
-        .filter((entry, index) => index == activeIndex)
+        .filter((entry, index) => index === activeIndex)
         .map(
             (entry, index) => <Question
                 key={index + entry.word + activeIndex}
@@ -38,11 +38,11 @@ const QuestionStack = (props) => {
                 hint={entry.hint}
                 ambiguous={entry.ambiguous}
                 testKanji={entry.testKanji}
-                proceed={proceed} />
+                proceed={proceed}/>
         )
 
     const closeButton = () => {
-        if (question.length == 0) {
+        if (question.length === 0) {
             return <NavLink exact to="/">KanjiSelector</NavLink>
         }
     }
