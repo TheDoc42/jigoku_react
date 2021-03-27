@@ -52,3 +52,15 @@ ruby {
   font-weight: bold;
   filter: drop-shadow(2px 4px 6px black);
 }
+
+form.question {
+background-color: #999;
+}
+
+form.questionOk {
+background-color: green;
+}
+
+form.questionNok {
+  background-color: red;  
+}
