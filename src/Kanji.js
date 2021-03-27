@@ -1923,12 +1923,11 @@ const Kanji = csv.map(
     (entry, index) => {
         const cols = entry.split('\t');
         return {
-            idx: index + 1,
+            idx: index + 2,
             char: cols[0],
             lastTest: cols[10]
         }
     }
-
 )
 
 export default Kanji;

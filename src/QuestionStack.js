@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import {NavLink} from "react-router-dom";
-import Words from "./Words4"
 import Question from "./Question"
 
 
@@ -20,7 +19,7 @@ const QuestionStack = (props) => {
         }
     }
 
-    const selection = Words.filter(
+    const selection = props.Words.filter(
         (entry) => {
             return props.selectedKanji.includes(entry.testKanji)
         }

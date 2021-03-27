@@ -6955,9 +6955,10 @@ const csv = [
 ]
 
 const Words = csv.map(
-    (entry) => {
+    (entry, index) => {
         const cols = entry.split('\t');
         return {
+            idx: index + 2,
             word: cols[0],
             answer: cols[1],
             hint: cols[2],
