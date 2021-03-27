@@ -1,48 +1,59 @@
-//import { useState } from "react";
+import {useEffect} from "react"
 import Card from "./Card"
 import Kanji from "./Kanji4"
 
 const KanjiSelector = (props) => {
 
     const updateKanjiSelection = (index, toggleOn) => {
-        let future = props.selectedKanji;
-
         if (toggleOn) {
-            if (future.indexOf(index) < 0) {
-                future.push(index);
-                props.setSelectedKanji(future);
-            }
+            addCard(index)
         } else {
-            if (future.indexOf(index) > -1) {
-                future = future.filter((entry) => entry !== index);
-                props.setSelectedKanji(future);
-            }
+            removeCard(index)
         }
     };
 
-    const clearKanjiCollection = () => {
-        props.setSelectedKanji([]);
+    const addCard = (index) => {
+        let future = props.selectedKanji;
+        future.push(index);
+        props.updateSelectedKanji(future);
     }
 
+    const removeCard = (index) => {
+        let future = props.selectedKanji;
+        future = future.filter((entry) => entry !== index);
+        props.updateSelectedKanji(future);
+    }
+
+    const clearKanjiCollection = () => {
+        props.updateSelectedKanji([]);
+    }
+
+    useEffect(() => {
+        console.log('update', props.selectedKanji)
+    })
+
     return (
-        <div>
+        <div key={props.selectedKanji.join(',')}>
             <button onClick={clearKanjiCollection}>Deselect All</button>
             <div className="selectCount">{props.selectedKanji.length}</div>
-            <div className="cards" key={props.selectedKanji.toString()}>
+            <div className="cards">
                 {Kanji.map((entry, index) => {
-                    return (
-                        <Card
-                            index={index}
-                            key={entry.char}
-                            char={entry.char}
-                            knowledge={entry.knowledge}
-                            updateSelected={updateKanjiSelection}
-                            selected={props.selectedKanji.indexOf(index) > -1} />
-                    )
-                }
+                        return (
+                            <Card
+                                index={index}
+                                key={entry.char}
+                                char={entry.char}
+                                knowledge={entry.knowledge}
+                                selected={props.selectedKanji.includes(index)}
+                                toggleSelected={() => {
+                                    updateKanjiSelection(index, !props.selectedKanji.includes(index))
+                                }
+                                }/>
+                        )
+                    }
                 )}
             </div>
-        </div >
+        </div>
 
 
     )

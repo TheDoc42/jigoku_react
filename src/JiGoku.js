@@ -1,9 +1,5 @@
-import React, { useState } from "react";
-import {
-    Route,
-    NavLink,
-    HashRouter
-} from "react-router-dom";
+import React, {useState} from "react";
+import {HashRouter, NavLink, Route} from "react-router-dom";
 import KanjiSelector from "./KanjiSelector"
 import QuestionStack from "./QuestionStack"
 
@@ -11,8 +7,8 @@ const JiGoku = (props) => {
     const [selectedKanji, setSelectedKanji] = useState([2, 3, 4, 5, 6]);
 
     const updateSelectedKanji = (selection) => {
-        console.log('updateSelectedKanji', selection, selection.join(','));
-        setSelectedKanji(selection);
+        console.log('updateSelectedKanji', selection);
+        setSelectedKanji([...selection]);
     }
 
     return (
@@ -26,13 +22,12 @@ const JiGoku = (props) => {
                 <div className="content">
                     <Route exact path="/">
                         <KanjiSelector
-                            key={selectedKanji.join(',')}
                             selectedKanji={selectedKanji}
-                            setSelectedKanji={updateSelectedKanji} />
+                            updateSelectedKanji={updateSelectedKanji}/>
                     </Route>
                     <Route path="/words">
                         <QuestionStack
-                            selectedKanji={selectedKanji} />
+                            selectedKanji={selectedKanji}/>
                     </Route>
                 </div>
             </div>

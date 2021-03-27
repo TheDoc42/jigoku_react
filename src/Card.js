@@ -1,23 +1,26 @@
-import { useState } from "react";
+import Kanji from "./Kanji4";
+
 const Card = (props) => {
 
-    const [selected, setSelected] = useState(props.selected);
+    const getBkg = (index) => {
 
-    const toggleSelected = () => {
-        const future = !selected;
-        setSelected(future);
-        props.updateSelected(props.index, future);
-    }
+        const knowledge = Kanji[index];
 
-    var bkg = { backgroundColor: 'white' }
-    if (props.knowledge === -1) {
-        bkg = { backgroundColor: 'rgb(178, 34, 34, 1)' }
-    } else if (props.knowledge > 0) {
-        bkg = { backgroundColor: 'rgb(11, 102, 35, ' + props.knowledge + ')' };
+        let bkg = {backgroundColor: 'white'}
+        if (knowledge === -1) {
+            bkg = {backgroundColor: 'rgb(178, 34, 34, 1)'}
+        } else if (knowledge > 0) {
+            bkg = {backgroundColor: 'rgb(11, 102, 35, ' + props.knowledge + ')'};
+        }
+
+        return bkg;
     }
 
     return (
-        <div key={props.char + props.selected} className={props.selected ? 'selected' : ''} style={bkg} onClick={toggleSelected}>{props.char}</div>
+        <div
+            className={props.selected ? 'selected' : ''}
+            style={getBkg(props.index)}
+            onClick={props.toggleSelected}>{props.char}</div>
     )
 }
 
