@@ -20,7 +20,7 @@ const Question = (props) => {
         e.preventDefault();
         const correct = props.answer === hepburn.toHiragana(answer);
         setCorrect(correct);
-        console.log(props.answer, hepburn.toHiragana(answer))
+        //console.log(props.answer, hepburn.toHiragana(answer))
         setSolved(true);
     }
 
@@ -54,7 +54,11 @@ const Question = (props) => {
 
     const continueButton = () => {
         if (solved) {
-            return <button onClick={() => props.proceed(props.idx, correct)}>Proceed</button>
+            return (<button onClick={
+                (e) => {
+                    e.preventDefault();
+                    props.proceed(props.idx, correct);
+                }}>Proceed</button>)
         }
     }
 
@@ -88,18 +92,41 @@ const Question = (props) => {
     は
     */
 
+    const displayCharacters = (characters) => {
+        return characters.characters.map(
+            (character, index) => {
+                return (
+                    <ruby key={character.row + index}>
+                        {character.character}
+                        {(solved) ? <rp>(</rp> : ''}
+                        {(solved) ? <rt>{character.furigana}</rt> : ''}
+                        {(solved) ? <rp>)</rp> : ''}
+                    </ruby>)
+            }
+        )
+
+    }
+
     return (
         <div key={props.word + solved + props.active}>
             <form className={questionState()}>
                 <div className="question Jpan" lang="ja">
-                    {props.word}
+                    {displayCharacters(props.characters)}
                 </div>
-                {hintText()}
-                <input ref={textInput} onKeyDown={updateAnswer} type="text" val={answer}/>
-                {solveButton()}
-                {continueButton()}
+                {
+                    hintText()
+                }
+                <input ref={textInput} onKeyDown={updateAnswer} defaultValue={answer} type="text"/>
+                {
+                    solveButton()
+                }
+                {
+                    continueButton()
+                }
             </form>
-            {hintButton()}
+            {
+                hintButton()
+            }
         </div>
 
 

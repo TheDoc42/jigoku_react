@@ -1,9 +1,10 @@
 import React, {useState} from "react";
 import {HashRouter, NavLink, Route} from "react-router-dom";
 import Kanji from "./Kanji4"
-import Words from "./Words4"
-import KanjiSelector from "./KanjiSelector"
-import QuestionStack from "./QuestionStack"
+import Words from "./Words4";
+import CharactersOfWords from "./CharactersOfWords";
+import KanjiSelector from "./KanjiSelector";
+import QuestionStack from "./QuestionStack";
 
 const JiGoku = (props) => {
 
@@ -91,6 +92,7 @@ const JiGoku = (props) => {
                     <Route path="/words">
                         <QuestionStack
                             Words={Words}
+                            CharactersOfWords={CharactersOfWords}
                             selectedKanji={selectedKanji}
                             setKnowledge={setKnowledge}/>
                     </Route>

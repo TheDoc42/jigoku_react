@@ -55,11 +55,13 @@ const QuestionStack = (props) => {
 
 
     const question = (entry) => {
+
         if (entry != null) {
             return <Question
                 key={entry.word + activeIndex}
                 idx={entry.idx}
                 word={entry.word}
+                characters={props.CharactersOfWords[entry.firstCharRow]}
                 answer={entry.answer}
                 hint={entry.hint}
                 ambiguous={entry.ambiguous}
@@ -78,7 +80,7 @@ const QuestionStack = (props) => {
     const progress = (entries) => {
         // style={{flex: 'repeat(1fr ' + entries.length + ')'}}>
 
-        console.log(entries)
+        //console.log(entries)
 
         return (<div className="progress">
             {
