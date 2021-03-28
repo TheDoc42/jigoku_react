@@ -1,4 +1,6 @@
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
+
+let hepburn = require("hepburn");
 
 const Question = (props) => {
 
@@ -7,6 +9,8 @@ const Question = (props) => {
     const [correct, setCorrect] = useState(false);
     const [answer, setAnswer] = useState("");
 
+    const textInput = useRef(null);
+
     const toggleShowForceHint = (e) => {
         e.preventDefault();
         setForceShowHint(!forceShowHint);
@@ -14,7 +18,9 @@ const Question = (props) => {
 
     const solveQuestion = (e) => {
         e.preventDefault();
-        setCorrect(props.answer === answer)
+        const correct = props.answer === hepburn.toHiragana(answer);
+        setCorrect(correct);
+        console.log(props.answer, hepburn.toHiragana(answer))
         setSolved(true);
     }
 
@@ -23,12 +29,18 @@ const Question = (props) => {
     }
 
     const hintText = () => {
+
+        let hint = "";
+
         if (forceShowHint || props.ambiguous) {
-            return <div className="hint">{props.hint}</div>
+            hint = props.hint;
         }
+        return <div className="hint">{hint}</div>
     }
 
     const hintButton = () => {
+        return;
+
         if (!(forceShowHint || props.ambiguous)) {
             return <button onClick={toggleShowForceHint}>Hint</button>
         }
@@ -42,7 +54,7 @@ const Question = (props) => {
 
     const continueButton = () => {
         if (solved) {
-            return <button onClick={props.proceed}>Continue</button>
+            return <button onClick={() => props.proceed(props.idx, correct)}>Proceed</button>
         }
     }
 
@@ -55,6 +67,10 @@ const Question = (props) => {
         }
         return "question";
     }
+
+    useEffect(() => {
+        textInput.current.focus();
+    })
 
     /*
     <ruby>
@@ -79,11 +95,11 @@ const Question = (props) => {
                     {props.word}
                 </div>
                 {hintText()}
-                <input onKeyDown={updateAnswer} type="text" val={answer}/>
-                {hintButton()}
+                <input ref={textInput} onKeyDown={updateAnswer} type="text" val={answer}/>
                 {solveButton()}
                 {continueButton()}
             </form>
+            {hintButton()}
         </div>
 
 
