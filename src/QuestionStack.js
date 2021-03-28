@@ -5,7 +5,18 @@ import Question from "./Question"
 
 const QuestionStack = (props) => {
 
+    const getWordStack = () => {
+        const selection = props.Words.filter(
+            (entry) => {
+                return props.selectedKanji.includes(entry.testKanji)
+            }
+        );
+        shuffleArray(selection);
+        return selection.slice(0, 10);
+    }
+
     const [activeIndex, setActiveIndex] = useState(0);
+    const [selectedWords, setSelectedWords] = useState(getWordStack());
 
     const updateKnowledge = (idx) => {
         let future = {...props.knowledge};
@@ -20,12 +31,17 @@ const QuestionStack = (props) => {
         props.setKnowledge(future)
     }
 
-    const proceed = (idx, hasError) => {
-        if (hasError) {
-            selectedWords.push(selectedWords[activeIndex]);
-        } else {
+    const proceed = (idx, isCorrect) => {
+        const future = [...selectedWords];
+        if (isCorrect) {
             updateKnowledge(idx)
+        } else {
+            let onceMore = {...selectedWords[activeIndex]};
+            delete onceMore.result;
+            future.push(onceMore);
         }
+        future[activeIndex].result = isCorrect;
+        setSelectedWords(future);
         setActiveIndex(activeIndex + 1);
     }
 
@@ -37,19 +53,11 @@ const QuestionStack = (props) => {
         }
     }
 
-    const selection = props.Words.filter(
-        (entry) => {
-            return props.selectedKanji.includes(entry.testKanji)
-        }
-    );
-    shuffleArray(selection);
-    const selectedWords = selection.slice(0, 10);
 
-    const question = selectedWords
-        .filter((entry, index) => index === activeIndex)
-        .map(
-            (entry, index) => <Question
-                key={index + entry.word + activeIndex}
+    const question = (entry) => {
+        if (entry != null) {
+            return <Question
+                key={entry.word + activeIndex}
                 idx={entry.idx}
                 word={entry.word}
                 answer={entry.answer}
@@ -58,7 +66,8 @@ const QuestionStack = (props) => {
                 testKanji={entry.testKanji}
                 updateKnowledge={() => updateKnowledge(entry.idx)}
                 proceed={proceed}/>
-        )
+        }
+    }
 
     const closeButton = () => {
         if (question.length === 0) {
@@ -66,9 +75,31 @@ const QuestionStack = (props) => {
         }
     }
 
+    const progress = (entries) => {
+        // style={{flex: 'repeat(1fr ' + entries.length + ')'}}>
+
+        console.log(entries)
+
+        return (<div className="progress">
+            {
+                entries.map(
+                    (entry, index) => {
+                        let displayClass = '';
+                        if (entry.result !== undefined) {
+                            displayClass = entry.result ? ('resultTrue') : 'resultFalse';
+                        }
+                        return <div key={'progress' + index}
+                                    className={displayClass}></div>
+                    }
+                )
+            }
+        </div>)
+    }
+
     return (
         <div className="questionStack">
-            {question}
+            {progress(selectedWords)}
+            {question(selectedWords[activeIndex])}
             {closeButton()}
         </div>
     )

@@ -71,7 +71,7 @@ ruby {
     --yellow: #eff066;
 }
 
-.questionStack {
+form.questionStack {
     display: flex;
     font-size: 2rem;
 }
@@ -79,6 +79,15 @@ ruby {
 div.question {
     background-color: var(--yellow);
     border-radius: 0.3em;
+}
+
+div.progress {
+    display: flex;
+}
+
+div.progress div {
+    flex-grow: 1;
+    height: 1em;
 }
 
 form.question {
@@ -101,11 +110,14 @@ form.question button {
     background-color: var(--green);
 }
 
-form.questionOk {
+form.questionOk,
+.resultTrue {
     background-color: green;
 }
 
-form.questionNok {
+form.questionNok,
+.resultFalse {
     background-color: red;
 }
+
 
