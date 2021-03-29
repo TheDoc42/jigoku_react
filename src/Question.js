@@ -57,7 +57,7 @@ const Question = (props) => {
             return (<button onClick={
                 (e) => {
                     e.preventDefault();
-                    props.proceed(props.idx, correct);
+                    props.proceed(props.idx, correct, props.repeated);
                 }}>Proceed</button>)
         }
     }

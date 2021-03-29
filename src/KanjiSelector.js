@@ -21,17 +21,19 @@ const KanjiSelector = (props) => {
         <div key={props.selectedKanji.join(',')}>
             <button onClick={clearKanjiCollection}>Deselect All</button>
             <div className="selectCount">{props.selectedKanji.length}</div>
+            <div
+                className="selectCards">{props.Words.filter((entry) => props.selectedKanji.includes(entry.testKanji)).length}</div>
             <div className="cards">
-                {props.Kanji.map((entry, index) => {
+                {props.Kanji.map((entry) => {
                         return (
                             <Card
-                                index={index}
+                                index={entry.idx}
                                 key={entry.char}
                                 char={entry.char}
                                 knowledge={props.kanjiKnowledge[entry.idx]}
-                                selected={props.selectedKanji.includes(index)}
+                                selected={props.selectedKanji.includes(entry.idx)}
                                 toggleSelected={() => {
-                                    updateKanjiSelection(index, !props.selectedKanji.includes(index))
+                                    updateKanjiSelection(entry.idx, !props.selectedKanji.includes(entry.idx))
                                 }
                                 }/>
                         )

@@ -10,7 +10,7 @@ const JiGoku = (props) => {
 
     const rate = 0.35;
 
-    const [selectedKanji, setSelectedKanji] = useState([2, 3, 4, 5, 6]);
+    const [selectedKanji, setSelectedKanji] = useState([6]);
     const [knowledge, setKnowledge] = useState({
         2: {lastTest: new Date() - 1 * 24 * 3600 * 1000, successCount: 1},
         3: {lastTest: new Date() - 1 * 24 * 3600 * 1000, successCount: 2},
@@ -70,7 +70,7 @@ const JiGoku = (props) => {
 
     const updateSelectedKanji = (selection) => {
         //console.log('updateSelectedKanji', selection);
-        setSelectedKanji(selection);
+        setSelectedKanji([...selection]);
     }
 
     return (
@@ -85,6 +85,7 @@ const JiGoku = (props) => {
                     <Route exact path="/">
                         <KanjiSelector
                             Kanji={Kanji}
+                            Words={Words}
                             selectedKanji={selectedKanji}
                             updateSelectedKanji={updateSelectedKanji}
                             kanjiKnowledge={kanjiKnowledge()}/>
@@ -94,7 +95,8 @@ const JiGoku = (props) => {
                             Words={Words}
                             CharactersOfWords={CharactersOfWords}
                             selectedKanji={selectedKanji}
-                            setKnowledge={setKnowledge}/>
+                            setKnowledge={setKnowledge}
+                            knowledge={knowledge}/>
                     </Route>
                 </div>
             </div>

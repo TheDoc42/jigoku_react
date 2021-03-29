@@ -18,26 +18,34 @@ const QuestionStack = (props) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [selectedWords, setSelectedWords] = useState(getWordStack());
 
-    const updateKnowledge = (idx) => {
+    const updateKnowledge = (idx, isSuccess) => {
         let future = {...props.knowledge};
+
         let futureCount = 0;
 
-        if (future.hasOwnProperty(idx)) {
-            futureCount = future[idx].successCount + 1
+        if (isSuccess) {
+            if (future.hasOwnProperty(idx)) {
+                futureCount = future[idx].successCount + 1
+            } else {
+                futureCount = 1;
+            }
         }
 
-        future[idx] = {lastDate: new Date(), successCount: futureCount};
+        future[idx] = {lastTest: new Date().getTime(), successCount: futureCount};
 
         props.setKnowledge(future)
     }
 
-    const proceed = (idx, isCorrect) => {
+    const proceed = (idx, isCorrect, isRepeated) => {
         const future = [...selectedWords];
-        if (isCorrect) {
-            updateKnowledge(idx)
-        } else {
+        //repeated cards award no points
+        if (!isRepeated) {
+            updateKnowledge(idx, isCorrect)
+        }
+        if (!isCorrect) {
             let onceMore = {...selectedWords[activeIndex]};
             delete onceMore.result;
+            onceMore.repeated = true;
             future.push(onceMore);
         }
         future[activeIndex].result = isCorrect;
@@ -64,6 +72,7 @@ const QuestionStack = (props) => {
                 characters={props.CharactersOfWords[entry.firstCharRow]}
                 answer={entry.answer}
                 hint={entry.hint}
+                repeated={entry.repeated}
                 ambiguous={entry.ambiguous}
                 testKanji={entry.testKanji}
                 updateKnowledge={() => updateKnowledge(entry.idx)}
