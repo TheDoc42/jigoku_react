@@ -81,7 +81,7 @@ const QuestionStack = (props) => {
     }
 
     const closeButton = () => {
-        if (question.length === 0) {
+        if (activeIndex >= selectedWords.length) {
             return <NavLink exact to="/">KanjiSelector</NavLink>
         }
     }

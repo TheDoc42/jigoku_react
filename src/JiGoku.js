@@ -73,16 +73,21 @@ const JiGoku = (props) => {
         setSelectedKanji([...selection]);
     }
 
+    const quizButton = () => {
+        if (selectedKanji.length > 0) {
+            return (<ul className="header">
+                <li><NavLink to="/words">QuestionStack</NavLink></li>
+            </ul>)
+        }
+    }
+
     return (
         <HashRouter>
             <div>
                 <h1>Simple SPA</h1>
-                <ul className="header">
-                    <li><NavLink exact to="/">KanjiSelector</NavLink></li>
-                    <li><NavLink to="/words">QuestionStack</NavLink></li>
-                </ul>
                 <div className="content">
                     <Route exact path="/">
+                        {quizButton()}
                         <KanjiSelector
                             Kanji={Kanji}
                             Words={Words}
