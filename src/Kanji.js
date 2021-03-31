@@ -1925,7 +1925,7 @@ const Kanji = csv.map(
         return {
             idx: index + 2,
             char: cols[0],
-            lastTest: cols[10]
+            jlpt: parseInt(cols[5])
         }
     }
 )

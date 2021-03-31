@@ -1,4 +1,5 @@
-import Card from "./Card"
+import {NavLink} from "react-router-dom";
+import Card from "./Card";
 
 const KanjiSelector = (props) => {
 
@@ -17,12 +18,36 @@ const KanjiSelector = (props) => {
         props.updateSelectedKanji([]);
     }
 
+    const quizButton = () => {
+        if (props.selectedKanji.length > 0) {
+            return (<ul className="header">
+                <li><NavLink to="/words">
+                    <button className="switchScreen">QuestionStack</button>
+                </NavLink></li>
+            </ul>)
+        }
+    }
+
     return (
-        <div key={props.selectedKanji.join(',')}>
+        <div key={props.selectedKanji.join(',')} className="selectorGrid">
+            {quizButton()}
             <button onClick={clearKanjiCollection}>Deselect All</button>
-            <div className="selectCount">{props.selectedKanji.length}</div>
+            <div className="selectCount">{props.selectedKanji.length} Kanji</div>
             <div
-                className="selectCards">{props.Words.filter((entry) => props.selectedKanji.includes(entry.testKanji)).length}</div>
+                className="selectCards">{props.Words.filter((entry) => props.selectedKanji.includes(entry.testKanji)).length} Words
+            </div>
+            <label className="kanjiSel kanji4"
+                   onClick={(() => props.updateJlptLevels(4, props.jlptLevels.includes(4)))}>
+                <input type="checkbox" readOnly checked={props.jlptLevels.includes(4)}/>Jlpt 4</label>
+            <label className="kanjiSel kanji3"
+                   onClick={(() => props.updateJlptLevels(3, props.jlptLevels.includes(3)))}>
+                <input type="checkbox" readOnly checked={props.jlptLevels.includes(3)}/> Jlpt 3</label>
+            <label className="kanjiSel kanji2"
+                   onClick={(() => props.updateJlptLevels(2, props.jlptLevels.includes(2)))}>
+                <input type="checkbox" readOnly checked={props.jlptLevels.includes(2)}/>Jlpt 2</label>
+            <label className="kanjiSel kanji1"
+                   onClick={(() => props.updateJlptLevels(1, props.jlptLevels.includes(1)))}>
+                <input type="checkbox" readOnly checked={props.jlptLevels.includes(1)}/>Jlpt 1</label>
             <div className="cards">
                 {props.Kanji.map((entry) => {
                         return (

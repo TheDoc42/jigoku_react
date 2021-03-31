@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {HashRouter, NavLink, Route} from "react-router-dom";
+import {HashRouter, Route} from "react-router-dom";
 import Kanji from "./Kanji4"
 import Words from "./Words4";
 import CharactersOfWords from "./CharactersOfWords";
@@ -25,6 +25,18 @@ const JiGoku = (props) => {
         20: {lastTest: new Date() - 4 * 24 * 3600 * 1000, successCount: 5},
         25: {lastTest: new Date() - 8 * 24 * 3600 * 1000, successCount: 0}
     });
+
+    const [jlptLevels, setJlptLevels] = useState([4]);
+
+    const updateJlptLevels = (level, enabled) => {
+        let future = [...jlptLevels];
+        if (enabled) {
+            future = future.filter(entry => entry !== level);
+        } else {
+            future.push(level);
+        }
+        setJlptLevels(future);
+    }
 
     const knowledgeScore = (entry) => {
         return entry.successCount * Math.exp(-rate * ((new Date() - entry.lastTest) / (24 * 3600 * 1000)))
@@ -73,31 +85,24 @@ const JiGoku = (props) => {
         setSelectedKanji([...selection]);
     }
 
-    const quizButton = () => {
-        if (selectedKanji.length > 0) {
-            return (<ul className="header">
-                <li><NavLink to="/words">QuestionStack</NavLink></li>
-            </ul>)
-        }
-    }
-
     return (
         <HashRouter>
-            <div>
-                <h1>Simple SPA</h1>
+            <div className="rootGrid">
+                <h1>JiGoku</h1>
                 <div className="content">
                     <Route exact path="/">
-                        {quizButton()}
                         <KanjiSelector
-                            Kanji={Kanji}
+                            Kanji={Kanji.filter((entry) => jlptLevels.includes(entry.jlpt))}
                             Words={Words}
                             selectedKanji={selectedKanji}
                             updateSelectedKanji={updateSelectedKanji}
+                            jlptLevels={jlptLevels}
+                            updateJlptLevels={updateJlptLevels}
                             kanjiKnowledge={kanjiKnowledge()}/>
                     </Route>
                     <Route path="/words">
                         <QuestionStack
-                            Words={Words}
+                            Words={Words.filter((entry) => jlptLevels.includes(entry.jlpt))}
                             CharactersOfWords={CharactersOfWords}
                             selectedKanji={selectedKanji}
                             setKnowledge={setKnowledge}

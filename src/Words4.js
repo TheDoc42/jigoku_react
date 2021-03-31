@@ -366,6 +366,7 @@ const Words = csv.map(
             word: cols[0],
             answer: cols[1],
             hint: cols[2],
+            jlpt: parseInt(cols[3]),
             ambiguous: "TRUE" === cols[4],
             firstCharRow: parseInt(cols[5]),
             testKanji: parseInt(cols[9])

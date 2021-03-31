@@ -7,11 +7,85 @@ body {
     sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: var(--beige);
 }
 
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.selectorGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+            "startQuiz startQuiz reset selectCount"
+            "startQuiz startQuiz reset selectCards"
+            "kanji4 kanji3 kanji2 kanji1"
+            "cards cards cards cards"
+}
+
+.kanjiSel {
+    border-radius: 0.3em;
+    border: solid 1px black;
+    margin: 1em;
+}
+
+.kanji1 {
+    grid-area: kanji1;
+}
+
+.kanji2 {
+    grid-area: kanji2;
+}
+
+.kanji3 {
+    grid-area: kanji3;
+}
+
+.kanji4 {
+    grid-area: kanji4;
+}
+
+.cards {
+    grid-area: cards;
+}
+
+ul.header {
+    grid-area: startQuiz;
+    margin: 0;
+    padding: 0;
+}
+
+ul.header li {
+    list-style: none;
+}
+
+.switchScreen,
+.selectorGrid button.switchScreen {
+    border-radius: 0.3em;
+    font-size: 1.5em;
+    cursor: pointer;
+    text-decoration: none;
+    height: 2em;
+    background-color: var(--green)
+}
+
+.selectorGrid button {
+    grid-area: reset;
+    border-radius: 0.3em;
+    cursor: pointer;
+    height: 2em;
+    font-size: 1.5em;
+    background-color: var(--pink)
+}
+
+.selectCount {
+    grid-area: selectCount;
+}
+
+.selectCards {
+    grid-area: selectCards;
 }
 
 .Jpan ruby rt {
@@ -43,24 +117,29 @@ ruby {
 }
 
 .cards {
+    margin-top: 0.3em;
     display: flex;
     flex-wrap: wrap;
     padding: 0 0 5px 5px;
 }
 
 .cards div {
-    width: 50px;
-    height: 50px;
+    font-size: 1.5em;
+    width: 2em;
+    height: 2em;
     text-align: center;
-    line-height: 50px;
-    margin: 5px 5px 0px 0px;
+    line-height: 2em;
+    margin: 0.2em 0.2em 0px 0px;
     cursor: pointer;
     background-color: white;
+    padding: 1px;
 }
 
 .cards div.selected {
     font-weight: bold;
-    filter: drop-shadow(2px 4px 6px black);
+    filter: drop-shadow(2px 4px 6px black) sepia(65%);
+    border: solid 1px white;
+    padding: 0px;
 }
 
 :root {
@@ -83,6 +162,7 @@ div.question {
 
 div.progress {
     display: flex;
+    margin-bottom: 0.5em;
 }
 
 div.progress div {
@@ -92,8 +172,7 @@ div.progress div {
 
 form.question {
     font-size: 2rem;
-    padding: 1em;
-    background-color: #aaa;
+    padding: 0.5em;
 }
 
 form.question div.question {
