@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {HashRouter, Route} from "react-router-dom";
+import createPersistedState from 'use-persisted-state';
 import Kanji from "./Kanji4"
 import Words from "./Words4";
 import CharactersOfWords from "./CharactersOfWords";
@@ -8,10 +9,13 @@ import QuestionStack from "./QuestionStack";
 
 const JiGoku = (props) => {
 
+    const useKnowledgeState = createPersistedState('knowledge');
+    const useJlptState = createPersistedState('jlpt');
+
     const rate = 0.35;
 
     const [selectedKanji, setSelectedKanji] = useState([6]);
-    const [knowledge, setKnowledge] = useState({
+    const [knowledge, setKnowledge] = useKnowledgeState({
         2: {lastTest: new Date() - 1 * 24 * 3600 * 1000, successCount: 1},
         3: {lastTest: new Date() - 1 * 24 * 3600 * 1000, successCount: 2},
         4: {lastTest: new Date() - 1 * 24 * 3600 * 1000, successCount: 1},
@@ -26,7 +30,7 @@ const JiGoku = (props) => {
         25: {lastTest: new Date() - 8 * 24 * 3600 * 1000, successCount: 0}
     });
 
-    const [jlptLevels, setJlptLevels] = useState([4]);
+    const [jlptLevels, setJlptLevels] = useJlptState([4]);
 
     const updateJlptLevels = (level, enabled) => {
         let future = [...jlptLevels];
