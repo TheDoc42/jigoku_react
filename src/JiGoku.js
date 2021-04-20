@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import {HashRouter, Route} from "react-router-dom";
 import createPersistedState from 'use-persisted-state';
-import Kanji from "./Kanji4"
-import Words from "./Words4";
-import CharactersOfWords from "./CharactersOfWords";
+import Kanji from "./data/Kanji4"
+import Words from "./data/Words4";
+import CharactersOfWords from "./data/CharactersOfWords";
 import KanjiSelector from "./KanjiSelector";
 import QuestionStack from "./QuestionStack";
 
