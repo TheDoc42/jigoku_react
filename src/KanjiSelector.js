@@ -1,4 +1,4 @@
-import {NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Card from "./Card";
 
 const KanjiSelector = (props) => {
@@ -34,35 +34,37 @@ const KanjiSelector = (props) => {
             <button onClick={clearKanjiCollection}>Deselect All</button>
             <div className="selectCount">{props.selectedKanji.length} Kanji</div>
             <div
-                className="selectCards">{props.Words.filter((entry) => props.selectedKanji.includes(entry.testKanji)).length} Words
+                className="selectCards">{props.Words.filter((entry) => (
+                    props.jlptLevels.includes(entry.jlpt)
+                    && props.selectedKanji.includes(entry.testKanji))).length} Words
             </div>
             <label className="kanjiSel kanji4"
-                   onClick={(() => props.updateJlptLevels(4, props.jlptLevels.includes(4)))}>
-                <input type="checkbox" readOnly checked={props.jlptLevels.includes(4)}/>Jlpt 4</label>
+                onClick={(() => props.updateJlptLevels(4, props.jlptLevels.includes(4)))}>
+                <input type="checkbox" readOnly checked={props.jlptLevels.includes(4)} />Jlpt 4</label>
             <label className="kanjiSel kanji3"
-                   onClick={(() => props.updateJlptLevels(3, props.jlptLevels.includes(3)))}>
-                <input type="checkbox" readOnly checked={props.jlptLevels.includes(3)}/> Jlpt 3</label>
+                onClick={(() => props.updateJlptLevels(3, props.jlptLevels.includes(3)))}>
+                <input type="checkbox" readOnly checked={props.jlptLevels.includes(3)} /> Jlpt 3</label>
             <label className="kanjiSel kanji2"
-                   onClick={(() => props.updateJlptLevels(2, props.jlptLevels.includes(2)))}>
-                <input type="checkbox" readOnly checked={props.jlptLevels.includes(2)}/>Jlpt 2</label>
+                onClick={(() => props.updateJlptLevels(2, props.jlptLevels.includes(2)))}>
+                <input type="checkbox" readOnly checked={props.jlptLevels.includes(2)} />Jlpt 2</label>
             <label className="kanjiSel kanji1"
-                   onClick={(() => props.updateJlptLevels(1, props.jlptLevels.includes(1)))}>
-                <input type="checkbox" readOnly checked={props.jlptLevels.includes(1)}/>Jlpt 1</label>
+                onClick={(() => props.updateJlptLevels(1, props.jlptLevels.includes(1)))}>
+                <input type="checkbox" readOnly checked={props.jlptLevels.includes(1)} />Jlpt 1</label>
             <div className="cards">
                 {props.Kanji.map((entry) => {
-                        return (
-                            <Card
-                                index={entry.idx}
-                                key={entry.char}
-                                char={entry.char}
-                                knowledge={props.kanjiKnowledge[entry.idx]}
-                                selected={props.selectedKanji.includes(entry.idx)}
-                                toggleSelected={() => {
-                                    updateKanjiSelection(entry.idx, !props.selectedKanji.includes(entry.idx))
-                                }
-                                }/>
-                        )
-                    }
+                    return (
+                        <Card
+                            index={entry.idx}
+                            key={entry.char}
+                            char={entry.char}
+                            knowledge={props.kanjiKnowledge[entry.idx]}
+                            selected={props.selectedKanji.includes(entry.idx)}
+                            toggleSelected={() => {
+                                updateKanjiSelection(entry.idx, !props.selectedKanji.includes(entry.idx))
+                            }
+                            } />
+                    )
+                }
                 )}
             </div>
         </div>

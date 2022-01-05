@@ -2,11 +2,11 @@ const Card = (props) => {
 
     const getBkg = (knowledge) => {
 
-        let bkg = {backgroundColor: 'white'}
+        let bkg = { backgroundColor: 'white' }
         if (knowledge === 0) {
-            bkg = {backgroundColor: 'rgb(178, 34, 34, 1)'}
+            bkg = { backgroundColor: 'rgb(178, 34, 34, 1)' }
         } else if (knowledge > 0) {
-            bkg = {backgroundColor: 'rgb(11, 102, 35, ' + Math.min(1, knowledge) + ')'};
+            bkg = { backgroundColor: 'rgb(11, 102, 35, ' + Math.min(1, knowledge) + ')' };
         }
 
         return bkg;

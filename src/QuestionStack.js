@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {NavLink} from "react-router-dom";
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
 import Question from "./Question"
 
 
@@ -8,7 +8,10 @@ const QuestionStack = (props) => {
     const getWordStack = () => {
         const selection = props.Words.filter(
             (entry) => {
-                return props.selectedKanji.includes(entry.testKanji)
+                return (
+                    props.jlptLevels.includes(entry.jlpt)
+                    && props.selectedKanji.includes(entry.testKanji)
+                )
             }
         );
         shuffleArray(selection);
@@ -19,7 +22,7 @@ const QuestionStack = (props) => {
     const [selectedWords, setSelectedWords] = useState(getWordStack());
 
     const updateKnowledge = (idx, isSuccess) => {
-        let future = {...props.knowledge};
+        let future = { ...props.knowledge };
 
         let futureCount = 0;
 
@@ -31,7 +34,7 @@ const QuestionStack = (props) => {
             }
         }
 
-        future[idx] = {lastTest: new Date().getTime(), successCount: futureCount};
+        future[idx] = { lastTest: new Date().getTime(), successCount: futureCount };
 
         props.setKnowledge(future)
     }
@@ -43,7 +46,7 @@ const QuestionStack = (props) => {
             updateKnowledge(idx, isCorrect)
         }
         if (!isCorrect) {
-            let onceMore = {...selectedWords[activeIndex]};
+            let onceMore = { ...selectedWords[activeIndex] };
             delete onceMore.result;
             onceMore.repeated = true;
             future.push(onceMore);
@@ -76,7 +79,7 @@ const QuestionStack = (props) => {
                 ambiguous={entry.ambiguous}
                 testKanji={entry.testKanji}
                 updateKnowledge={() => updateKnowledge(entry.idx)}
-                proceed={proceed}/>
+                proceed={proceed} />
         }
     }
 
@@ -105,7 +108,7 @@ const QuestionStack = (props) => {
                             displayClass = entry.result ? ('resultTrue') : 'resultFalse';
                         }
                         return <div key={'progress' + index}
-                                    className={displayClass}></div>
+                            className={displayClass}></div>
                     }
                 )
             }

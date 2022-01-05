@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 let hepburn = require("hepburn");
 
@@ -116,7 +116,7 @@ const Question = (props) => {
                 {
                     hintText()
                 }
-                <input ref={textInput} onKeyDown={updateAnswer} defaultValue={answer} type="text"/>
+                <input ref={textInput} onKeyDown={updateAnswer} defaultValue={answer} type="text" />
                 {
                     solveButton()
                 }

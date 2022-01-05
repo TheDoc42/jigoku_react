@@ -1,8 +1,8 @@
-import React, {useState} from "react";
-import {HashRouter, Route} from "react-router-dom";
+import React, { useState } from "react";
+import { HashRouter, Route } from "react-router-dom";
 import createPersistedState from 'use-persisted-state';
-import Kanji from "./data/Kanji4"
-import Words from "./data/Words4";
+import Kanji from "./data/Kanji"
+import Words from "./data/Words";
 import CharactersOfWords from "./data/CharactersOfWords";
 import KanjiSelector from "./KanjiSelector";
 import QuestionStack from "./QuestionStack";
@@ -16,18 +16,18 @@ const JiGoku = (props) => {
 
     const [selectedKanji, setSelectedKanji] = useState([6]);
     const [knowledge, setKnowledge] = useKnowledgeState({
-        2: {lastTest: new Date() - 1 * 24 * 3600 * 1000, successCount: 1},
-        3: {lastTest: new Date() - 1 * 24 * 3600 * 1000, successCount: 2},
-        4: {lastTest: new Date() - 1 * 24 * 3600 * 1000, successCount: 1},
-        5: {lastTest: new Date() - 1 * 24 * 3600 * 1000, successCount: 0},
-        6: {lastTest: new Date() - 1 * 24 * 3600 * 1000, successCount: 2},
-        12: {lastTest: new Date() - 4 * 24 * 3600 * 1000, successCount: 1},
-        13: {lastTest: new Date() - 4 * 24 * 3600 * 1000, successCount: 2},
-        14: {lastTest: new Date() - 4 * 24 * 3600 * 1000, successCount: 10},
-        15: {lastTest: new Date() - 4 * 24 * 3600 * 1000, successCount: 7},
-        16: {lastTest: new Date() - 4 * 24 * 3600 * 1000, successCount: 4},
-        20: {lastTest: new Date() - 4 * 24 * 3600 * 1000, successCount: 5},
-        25: {lastTest: new Date() - 8 * 24 * 3600 * 1000, successCount: 0}
+        2: { lastTest: new Date() - 1 * 24 * 3600 * 1000, successCount: 1 },
+        3: { lastTest: new Date() - 1 * 24 * 3600 * 1000, successCount: 2 },
+        4: { lastTest: new Date() - 1 * 24 * 3600 * 1000, successCount: 1 },
+        5: { lastTest: new Date() - 1 * 24 * 3600 * 1000, successCount: 0 },
+        6: { lastTest: new Date() - 1 * 24 * 3600 * 1000, successCount: 2 },
+        12: { lastTest: new Date() - 4 * 24 * 3600 * 1000, successCount: 1 },
+        13: { lastTest: new Date() - 4 * 24 * 3600 * 1000, successCount: 2 },
+        14: { lastTest: new Date() - 4 * 24 * 3600 * 1000, successCount: 10 },
+        15: { lastTest: new Date() - 4 * 24 * 3600 * 1000, successCount: 7 },
+        16: { lastTest: new Date() - 4 * 24 * 3600 * 1000, successCount: 4 },
+        20: { lastTest: new Date() - 4 * 24 * 3600 * 1000, successCount: 5 },
+        25: { lastTest: new Date() - 8 * 24 * 3600 * 1000, successCount: 0 }
     });
 
     const [jlptLevels, setJlptLevels] = useJlptState([4]);
@@ -102,15 +102,16 @@ const JiGoku = (props) => {
                             updateSelectedKanji={updateSelectedKanji}
                             jlptLevels={jlptLevels}
                             updateJlptLevels={updateJlptLevels}
-                            kanjiKnowledge={kanjiKnowledge()}/>
+                            kanjiKnowledge={kanjiKnowledge()} />
                     </Route>
                     <Route path="/words">
                         <QuestionStack
                             Words={Words.filter((entry) => jlptLevels.includes(entry.jlpt))}
                             CharactersOfWords={CharactersOfWords}
                             selectedKanji={selectedKanji}
+                            jlptLevels={jlptLevels}
                             setKnowledge={setKnowledge}
-                            knowledge={knowledge}/>
+                            knowledge={knowledge} />
                     </Route>
                 </div>
             </div>
