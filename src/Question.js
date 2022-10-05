@@ -18,7 +18,7 @@ const Question = (props) => {
 
     const solveQuestion = (e) => {
         e.preventDefault();
-        const correct = props.answer === hepburn.toHiragana(answer);
+        const correct = props.answer.replace('～', '-') === hepburn.toHiragana(answer);
         setCorrect(correct);
         //console.log(props.answer, hepburn.toHiragana(answer))
         setSolved(true);
@@ -39,8 +39,6 @@ const Question = (props) => {
     }
 
     const hintButton = () => {
-        return;
-
         if (!(forceShowHint || props.ambiguous)) {
             return <button onClick={toggleShowForceHint}>Hint</button>
         }

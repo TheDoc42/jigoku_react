@@ -17,12 +17,12 @@ code {
 
 .selectorGrid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-areas:
-            "startQuiz startQuiz reset selectCount"
-            "startQuiz startQuiz reset selectCards"
-            "kanji4 kanji3 kanji2 kanji1"
-            "cards cards cards cards"
+            "startQuiz startQuiz reset selectCount selectCount"
+            "startQuiz startQuiz reset selectCards selectCards"
+            "kanji5 kanji4 kanji3 kanji2 kanji1"
+            "cards cards cards cards cards"
 }
 
 .kanjiSel {

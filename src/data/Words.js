@@ -6962,7 +6962,8 @@ const Words = csv.map(
             word: cols[0],
             answer: cols[1],
             hint: cols[2],
-            jlpt: parseInt(cols[3]),
+            //jlpt introduced a new level between 1 and 2, shifting everything down
+            jlpt: parseInt(cols[3]) + 1,
             ambiguous: "TRUE" === cols[4],
             firstCharRow: parseInt(cols[5]),
             testKanji: parseInt(cols[9])

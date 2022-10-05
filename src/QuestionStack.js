@@ -97,7 +97,7 @@ const QuestionStack = (props) => {
     const progress = (entries) => {
         // style={{flex: 'repeat(1fr ' + entries.length + ')'}}>
 
-        //console.log(entries)
+        // console.log(entries)
 
         return (<div className="progress">
             {

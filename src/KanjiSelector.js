@@ -38,6 +38,9 @@ const KanjiSelector = (props) => {
                     props.jlptLevels.includes(entry.jlpt)
                     && props.selectedKanji.includes(entry.testKanji))).length} Words
             </div>
+            <label className="kanjiSel kanji5"
+                onClick={(() => props.updateJlptLevels(5, props.jlptLevels.includes(5)))}>
+                <input type="checkbox" readOnly checked={props.jlptLevels.includes(5)} />Jlpt 5</label>
             <label className="kanjiSel kanji4"
                 onClick={(() => props.updateJlptLevels(4, props.jlptLevels.includes(4)))}>
                 <input type="checkbox" readOnly checked={props.jlptLevels.includes(4)} />Jlpt 4</label>
