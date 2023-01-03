@@ -47,6 +47,10 @@ code {
     grid-area: kanji4;
 }
 
+.kanji5 {
+    grid-area: kanji5;
+}
+
 .cards {
     grid-area: cards;
 }
