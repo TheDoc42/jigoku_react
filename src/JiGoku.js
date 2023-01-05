@@ -85,14 +85,14 @@ const JiGoku = (props) => {
     }
 
     const updateSelectedKanji = (selection) => {
-        //console.log('updateSelectedKanji', selection);
+        console.log('updateSelectedKanji', selection);
         setSelectedKanji([...selection]);
     }
 
     return (
         <HashRouter>
             <div className="rootGrid">
-                <h1>JiGoku</h1>
+                <h1>字国 JiGoku</h1>
                 <div className="content">
                     <Route exact path="/">
                         <KanjiSelector

@@ -1,13 +1,12 @@
 @import url(//fonts.googleapis.com/css?family=Noto+Sans+JP);
 
-body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background-color: var(--beige);
+h1 {
+    font-family: 'Yu Gothic UI', 'Meiryo UI', 'MS UI Gothic', sans-serif;
+    font-family: 'Noto Sans JP';
+    color: #f5f5f5;
+    text-shadow: 0px -2px 4px #fff, 0px -2px 10px #FF3, 0px -10px 20px #F90, 0px -20px 40px #C33;
+    font-size: 100px;
+    font-weight: lighter;
 }
 
 code {
@@ -15,40 +14,10 @@ code {
     monospace;
 }
 
-.selectorGrid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-areas:
-            "startQuiz startQuiz reset selectCount selectCount"
-            "startQuiz startQuiz reset selectCards selectCards"
-            "kanji5 kanji4 kanji3 kanji2 kanji1"
-            "cards cards cards cards cards"
-}
-
 .kanjiSel {
     border-radius: 0.3em;
     border: solid 1px black;
     margin: 1em;
-}
-
-.kanji1 {
-    grid-area: kanji1;
-}
-
-.kanji2 {
-    grid-area: kanji2;
-}
-
-.kanji3 {
-    grid-area: kanji3;
-}
-
-.kanji4 {
-    grid-area: kanji4;
-}
-
-.kanji5 {
-    grid-area: kanji5;
 }
 
 .cards {
@@ -63,33 +32,6 @@ ul.header {
 
 ul.header li {
     list-style: none;
-}
-
-.switchScreen,
-.selectorGrid button.switchScreen {
-    border-radius: 0.3em;
-    font-size: 1.5em;
-    cursor: pointer;
-    text-decoration: none;
-    height: 2em;
-    background-color: var(--green)
-}
-
-.selectorGrid button {
-    grid-area: reset;
-    border-radius: 0.3em;
-    cursor: pointer;
-    height: 2em;
-    font-size: 1.5em;
-    background-color: var(--pink)
-}
-
-.selectCount {
-    grid-area: selectCount;
-}
-
-.selectCards {
-    grid-area: selectCards;
 }
 
 .Jpan ruby rt {
