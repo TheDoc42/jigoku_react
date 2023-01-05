@@ -7,29 +7,15 @@ import './App.css';
 
 import JiGoku from "./JiGoku"
 
-const themeLight = createTheme({
+const theme = createTheme({
     palette: {
-        background: {
-            default: "#e4f0e2"
-        }
-    }
-});
-
-const themeDark = createTheme({
-    palette: {
-        background: {
-            default: "#222222"
-        },
-        text: {
-            primary: "#ffffff"
-        }
-    }
+        mode: 'light',
+    },
 });
 
 const App = () => {
-    const [light, setLight] = React.useState(true);
     return (
-        <ThemeProvider theme={light ? themeLight : themeDark}>
+        <ThemeProvider theme={theme}>
             <CssBaseline/>
             <JiGoku/>
         </ThemeProvider>
