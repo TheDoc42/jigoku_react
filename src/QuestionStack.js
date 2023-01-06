@@ -9,7 +9,7 @@ const QuestionStack = (props) => {
         const selection = props.Words.filter(
             (entry) => {
                 return (
-                    props.jlptLevels.includes(entry.jlpt)
+                    props.jlptLevels.includes(''+entry.jlpt)
                     && props.selectedKanji.includes(entry.testKanji)
                 )
             }

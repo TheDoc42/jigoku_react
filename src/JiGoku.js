@@ -103,7 +103,7 @@ const JiGoku = (props) => {
                     </Route>
                     <Route path="/words">
                         <QuestionStack
-                            Words={Words.filter((entry) => jlptLevels.includes(entry.jlpt))}
+                            Words={Words.filter((entry) => jlptLevels.includes(''+entry.jlpt))}
                             CharactersOfWords={CharactersOfWords}
                             selectedKanji={selectedKanji}
                             jlptLevels={jlptLevels}
