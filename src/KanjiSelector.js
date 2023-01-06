@@ -59,14 +59,10 @@ const KanjiSelector = (props) => {
                     <Button variant="outlined" onClick={clearKanjiCollection}>Deselect All</Button>
                     <Card sx={{ minWidth: 275 }}>
                         <CardContent>
-                            <p>
-                                {props.selectedKanji.length} Kanji
-                            </p>
-                            <p>
+                                {props.selectedKanji.length} Kanji<br />
                                 {props.Words.filter((entry) => (
-                                    props.jlptLevels.includes(entry.jlpt)
+                                    props.jlptLevels.includes(''+entry.jlpt)
                                     && props.selectedKanji.includes(entry.testKanji))).length} Words
-                            </p>
                         </CardContent>
                     </Card>
                 </Stack>
