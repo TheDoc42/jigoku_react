@@ -1,10 +1,14 @@
 import {NavLink} from "react-router-dom";
-import Card from "./Card";
+import WordCard from "./WordCard";
 import Button from '@mui/material/Button';
 import {ToggleButton} from "@mui/material";
 import {ToggleButtonGroup} from "@mui/material";
 import {Alert} from "@mui/material";
 import React, {useState} from "react";
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Stack from '@mui/material/Stack';
 
 const KanjiSelector = (props) => {
 
@@ -24,12 +28,14 @@ const KanjiSelector = (props) => {
         props.updateSelectedKanji([]);
     }
 
-    const [sel2, setSel2] = React.useState(() => []);
+    const [sel2, setSel2] = React.useState(() => props.jlptLevels.map(i=>""+i));
 
+    // event comes back as string
     const handleSel2 = (event, newSel2) => {
-        setSel2(newSel2);
-        props.updateSelectedKanji(newSel2)
-        console.log(newSel2)
+        //remove doubles
+        let future = [...new Set(newSel2)]
+        setSel2(future);
+        props.updateJlptLevels(future)
     };
 
     const quizButton = () => {
@@ -44,51 +50,57 @@ const KanjiSelector = (props) => {
 
     return (
         <div key={props.selectedKanji.join(',')}>
-            {quizButton()}
-            <Button variant="outlined" onClick={clearKanjiCollection}>Deselect All</Button>
-            <Alert severity="info">
-                <p>
-                    {props.selectedKanji.length} Kanji
-                </p>
-                <p>
-                    {props.Words.filter((entry) => (
-                        props.jlptLevels.includes(entry.jlpt)
-                        && props.selectedKanji.includes(entry.testKanji))).length} Words
-                </p>
-            </Alert>
-            <ToggleButtonGroup
-                color="primary"
-                value={sel2}
-                onChange={handleSel2}>
-                <ToggleButton
-                    value="5">Jlpt 5</ToggleButton>
-                <ToggleButton
-                    value="4">Jlpt 4</ToggleButton>
-                <ToggleButton
-                    value="3">Jlpt 3</ToggleButton>
-                <ToggleButton
-                    value="2">Jlpt 2</ToggleButton>
-                <ToggleButton
-                    value="1">Jlpt 1</ToggleButton>
-            </ToggleButtonGroup>
-
-            <div className="cards">
-                {props.Kanji.map((entry) => {
-                        return (
-                            <Card
-                                index={entry.idx}
-                                key={entry.char}
-                                char={entry.char}
-                                knowledge={props.kanjiKnowledge[entry.idx]}
-                                selected={props.selectedKanji.includes(entry.idx)}
-                                toggleSelected={() => {
-                                    updateKanjiSelection(entry.idx, !props.selectedKanji.includes(entry.idx))
-                                }
-                                }/>
-                        )
-                    }
-                )}
-            </div>
+            <Stack spacing={2}>
+                <Stack direction="row" spacing={2}>
+                    {quizButton()}
+                    <Button variant="outlined" onClick={clearKanjiCollection}>Deselect All</Button>
+                    <Card sx={{ minWidth: 275 }}>
+                        <CardContent>
+                            <p>
+                                {props.selectedKanji.length} Kanji
+                            </p>
+                            <p>
+                                {props.Words.filter((entry) => (
+                                    props.jlptLevels.includes(entry.jlpt)
+                                    && props.selectedKanji.includes(entry.testKanji))).length} Words
+                            </p>
+                        </CardContent>
+                    </Card>
+                </Stack>
+                <ToggleButtonGroup
+                    color="primary"
+                    value={sel2}
+                    onChange={handleSel2}>
+                    <ToggleButton
+                        value="5">Jlpt 5</ToggleButton>
+                    <ToggleButton
+                        value="4">Jlpt 4</ToggleButton>
+                    <ToggleButton
+                        value="3">Jlpt 3</ToggleButton>
+                    <ToggleButton
+                        value="2">Jlpt 2</ToggleButton>
+                    <ToggleButton
+                        value="1">Jlpt 1</ToggleButton>
+                </ToggleButtonGroup>
+    
+                <div className="cards">
+                    {props.Kanji.map((entry) => {
+                            return (
+                                    <WordCard
+                                    index={entry.idx}
+                                    key={entry.char}
+                                    char={entry.char}
+                                    knowledge={props.kanjiKnowledge[entry.idx]}
+                                    selected={props.selectedKanji.includes(entry.idx)}
+                                    toggleSelected={() => {
+                                        updateKanjiSelection(entry.idx, !props.selectedKanji.includes(entry.idx))
+                                    }
+                                    }/>
+                            )
+                        }
+                    )}
+                </div>
+            </Stack>
         </div>
 
 

@@ -30,15 +30,10 @@ const JiGoku = (props) => {
         25: { lastTest: new Date() - 8 * 24 * 3600 * 1000, successCount: 0 }
     });
 
-    const [jlptLevels, setJlptLevels] = useJlptState([4]);
+    const [jlptLevels, setJlptLevels] = useJlptState(['4']);
 
-    const updateJlptLevels = (level, enabled) => {
-        let future = [...jlptLevels];
-        if (enabled) {
-            future = future.filter(entry => entry !== level);
-        } else {
-            future.push(level);
-        }
+    const updateJlptLevels = (levels) => {
+        let future = [...levels];
         setJlptLevels(future);
     }
 
@@ -96,7 +91,9 @@ const JiGoku = (props) => {
                 <div className="content">
                     <Route exact path="/">
                         <KanjiSelector
-                            Kanji={Kanji.filter((entry) => jlptLevels.includes(entry.jlpt))}
+                            Kanji={Kanji.filter(entry =>{
+                                return jlptLevels.includes(''+entry.jlpt);
+                            })}
                             Words={Words}
                             selectedKanji={selectedKanji}
                             updateSelectedKanji={updateSelectedKanji}

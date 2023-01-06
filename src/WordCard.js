@@ -1,4 +1,4 @@
-const Card = (props) => {
+const WordCard = (props) => {
 
     const getBkg = (knowledge) => {
 
@@ -20,4 +20,4 @@ const Card = (props) => {
     )
 }
 
-export default Card
+export default WordCard
