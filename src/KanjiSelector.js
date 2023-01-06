@@ -51,7 +51,10 @@ const KanjiSelector = (props) => {
     return (
         <div key={props.selectedKanji.join(',')}>
             <Stack spacing={2}>
-                <Stack direction="row" spacing={2}>
+                <Stack
+                    direction="row"
+                    justifyContent="center"
+                    spacing={2}>
                     {quizButton()}
                     <Button variant="outlined" onClick={clearKanjiCollection}>Deselect All</Button>
                     <Card sx={{ minWidth: 275 }}>
@@ -67,21 +70,26 @@ const KanjiSelector = (props) => {
                         </CardContent>
                     </Card>
                 </Stack>
-                <ToggleButtonGroup
-                    color="primary"
-                    value={sel2}
-                    onChange={handleSel2}>
-                    <ToggleButton
-                        value="5">Jlpt 5</ToggleButton>
-                    <ToggleButton
-                        value="4">Jlpt 4</ToggleButton>
-                    <ToggleButton
-                        value="3">Jlpt 3</ToggleButton>
-                    <ToggleButton
-                        value="2">Jlpt 2</ToggleButton>
-                    <ToggleButton
-                        value="1">Jlpt 1</ToggleButton>
-                </ToggleButtonGroup>
+                <Stack
+                    direction="row"
+                    justifyContent="center">
+                    <ToggleButtonGroup
+                        color="primary"
+                        value={sel2}
+                        justifyContent="center"
+                        onChange={handleSel2}>
+                        <ToggleButton
+                            value="5">Jlpt 5</ToggleButton>
+                        <ToggleButton
+                            value="4">Jlpt 4</ToggleButton>
+                        <ToggleButton
+                            value="3">Jlpt 3</ToggleButton>
+                        <ToggleButton
+                            value="2">Jlpt 2</ToggleButton>
+                        <ToggleButton
+                            value="1">Jlpt 1</ToggleButton>
+                    </ToggleButtonGroup>
+                </Stack>
     
                 <div className="cards">
                     {props.Kanji.map((entry) => {
