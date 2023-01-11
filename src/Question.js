@@ -1,4 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
 
 let hepburn = require("hepburn");
 
@@ -17,14 +21,21 @@ const Question = (props) => {
     }
 
     const solveQuestion = (e) => {
-        e.preventDefault();
-        const correct = props.answer.replace('～', '-') === hepburn.toHiragana(answer);
-        setCorrect(correct);
-        //console.log(props.answer, hepburn.toHiragana(answer))
-        setSolved(true);
+
+        if(!solved) {
+
+            e.preventDefault();
+            const correct = props.answer.replace('～', '-') === hepburn.toHiragana(answer);
+            setCorrect(correct);
+            //console.log(props.answer, hepburn.toHiragana(answer))
+            setSolved(true);
+        } else {
+            props.proceed(props.idx, correct, props.repeated);
+        }
     }
 
     const updateAnswer = (e) => {
+        console.log("setAnswer:"+e);
         setAnswer(e.target.value);
     }
 
@@ -40,23 +51,51 @@ const Question = (props) => {
 
     const hintButton = () => {
         if (!(forceShowHint || props.ambiguous)) {
-            return <button onClick={toggleShowForceHint}>Hint</button>
+            return <Button variants="text" onClick={toggleShowForceHint}>Hint</Button>
         }
     }
 
-    const solveButton = () => {
+    const solveDisplay = () => {
         if (!solved) {
-            return <button onClick={solveQuestion}>Solve</button>
+            return <Stack
+                direction="row"
+                justifyContent="center"
+                spacing={2}>
+                <TextField
+                    label="ROMAJI"
+                    focused
+                    autoFocus={true}
+                    ref={textInput}
+                    InputLabelProps={{ shrink: true }}
+                    onChange={updateAnswer}
+                    defaultValue={answer}
+                    onKeyDown={onKeyPress}
+                    type="text"></TextField>
+                <Button variants="contained" onClick={solveQuestion}>Solve</Button>
+            </Stack>
         }
     }
 
-    const continueButton = () => {
+    const continueDisplay = () => {
         if (solved) {
-            return (<button onClick={
-                (e) => {
-                    e.preventDefault();
-                    props.proceed(props.idx, correct, props.repeated);
-                }}>Proceed</button>)
+            return <Stack
+                direction="row"
+                justifyContent="center"
+                spacing={2}>
+                <TextField
+                    label="ROMAJI"
+                    disabled
+                    InputLabelProps={{ shrink: true }}
+                    defaultValue={answer}
+                    type="text"></TextField>
+                <Button variants="contained"
+                    autoFocus={true}
+                    onClick={
+                        e => {
+                            e.preventDefault();
+                            props.proceed(props.idx, correct, props.repeated);
+                        }}>Proceed</Button>
+            </Stack>
         }
     }
 
@@ -70,9 +109,11 @@ const Question = (props) => {
         return "question";
     }
 
-    useEffect(() => {
-        textInput.current.focus();
-    })
+    const onKeyPress = (e) => {
+        if(e.keyCode === 13){
+            solveQuestion(e);
+        }
+    }
 
     /*
     <ruby>
@@ -90,7 +131,7 @@ const Question = (props) => {
     は
     */
 
-    const displayCharacters = (characters) => {
+    const questionDisplay = (characters) => {
         return characters.characters.map(
             (character, index) => {
                 return (
@@ -107,24 +148,32 @@ const Question = (props) => {
 
     return (
         <div key={props.word + solved + props.active}>
-            <form className={questionState()}>
-                <div className="question Jpan" lang="ja">
-                    {displayCharacters(props.characters)}
-                </div>
-                {
-                    hintText()
-                }
-                <input ref={textInput} onKeyDown={updateAnswer} defaultValue={answer} type="text" />
-                {
-                    solveButton()
-                }
-                {
-                    continueButton()
-                }
-            </form>
-            {
-                hintButton()
-            }
+            <Box
+              component="form"
+              noValidate
+              autoComplete="off"
+                className={questionState()}>
+                    <Stack spacing={2}>
+                        <Box
+                            className="question Jpan"
+                            lang="ja">
+                            {questionDisplay(props.characters)}
+                        </Box>
+                        {
+                            hintText()
+                        }
+
+                        {
+                            solveDisplay()
+                        }
+                        {
+                            continueDisplay()
+                        }
+                        {
+                            hintButton()
+                        }
+                    </Stack>
+            </Box>
         </div>
 
 

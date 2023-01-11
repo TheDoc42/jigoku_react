@@ -103,6 +103,7 @@ form.questionStack {
 div.question {
     background-color: var(--yellow);
     border-radius: 0.3em;
+    text-align: center;
 }
 
 div.progress {
@@ -125,23 +126,10 @@ form.question div.question {
     line-height: 7rem;
 }
 
-form.question input {
-    border-radius: 0.3em 0 0 0.3em;
-    font-size: 2rem;
-    padding: 0.3em;
-}
-
 form.question .hint {
     height: 2.3em;
     line-height: 2.3em;
     font-size: 1.5rem;
-}
-
-form.question button {
-    border-radius: 0 0.3em 0.3em 0;
-    font-size: 2rem;
-    background-color: var(--green);
-    padding: 0.3em;
 }
 
 form.questionOk,

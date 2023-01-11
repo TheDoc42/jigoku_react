@@ -79,7 +79,7 @@ const JiGoku = (props) => {
         return know;
     }
 
-    const updateSelectedKanji = (selection) => {
+    const updateSelectedKanji = selection => {
         console.log('updateSelectedKanji', selection);
         setSelectedKanji([...selection]);
     }
