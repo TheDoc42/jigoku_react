@@ -41,7 +41,7 @@ ul.header li {
 
 .Hira, .Hira *, .Jpan, .Jpan *, .Kana, .Kana * {
     font-style: normal;
-    font-family: 'Noto Sans JP','Yu Gothic UI', 'Meiryo UI', 'MS UI Gothic', sans-serif;
+    font-family: 'Noto Sans JP', 'Yu Gothic UI', 'Meiryo UI', 'MS UI Gothic', sans-serif;
 }
 
 ruby > rt {
@@ -62,6 +62,7 @@ ruby {
 }
 
 .cards {
+    color: black;
     margin-top: 0.3em;
     display: flex;
     flex-wrap: wrap;

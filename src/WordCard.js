@@ -1,21 +1,21 @@
 const WordCard = (props) => {
 
-    const getBkg = (knowledge) => {
+    const getStyle = (knowledge) => {
 
-        let bkg = { backgroundColor: 'white' }
+        let style = { backgroundColor: 'white', color:'black' }
         if (knowledge === 0) {
-            bkg = { backgroundColor: 'rgb(178, 34, 34, 1)' }
+            style = { backgroundColor: 'rgb(178, 34, 34, 1)', color: 'white' }
         } else if (knowledge > 0) {
-            bkg = { backgroundColor: 'rgb(11, 102, 35, ' + Math.min(1, knowledge) + ')' };
+            style = { backgroundColor: 'rgb(11, 102, 35, ' + Math.min(1, knowledge) + ')', color: 'white' };
         }
 
-        return bkg;
+        return style;
     }
 
     return (
         <div
             className={props.selected ? 'selected' : ''}
-            style={getBkg(props.knowledge)}
+            style={getStyle(props.knowledge)}
             onClick={props.toggleSelected}>{props.char}</div>
     )
 }

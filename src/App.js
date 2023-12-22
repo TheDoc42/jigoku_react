@@ -10,16 +10,16 @@ import JiGoku from "./JiGoku"
 
 const myTheme = createTheme({
     palette: {
-        mode: 'light',
+        mode: 'dark',
     },
 });
 
 const App = () => <Box>
-            <ThemeProvider theme={myTheme}>
-                <CssBaseline/>
-                <JiGoku/>
-            </ThemeProvider>
-        </Box>
+    <ThemeProvider theme={myTheme}>
+        <CssBaseline/>
+        <JiGoku/>
+    </ThemeProvider>
+</Box>
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(<App/>, rootElement);
